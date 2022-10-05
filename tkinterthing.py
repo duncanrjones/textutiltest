@@ -1,23 +1,29 @@
 import tkinter.filedialog as filedialog
 import tkinter as tk
-from typing import Text
+import difflib
 
 master = tk.Tk()
 
-def test_function(x, y):
-    with open(x, 'r', encoding='utf8') as fd:
-        num1 = fd.readlines()
-    with open(y, 'r', encoding='utf8') as fb:
-        num2 = fb.readlines()
-    global f 
-    f = num1 + num2
+def CompareXML(standardxml, XMLPath):
+
+    with open(standardxml, 'r', encoding='utf-8') as y:
+        file1 = y.readlines()
+
+    with open(XMLPath, 'r', encoding='utf-8') as fd:
+        file2 = fd.readlines()
+
+    diff = list(difflib.context_diff(file1, file2))
+
+    global f
+
+    f = '\n'.join(diff)
 
 def file_save():
-    d = filedialog.asksaveasfile(mode='w', defaultextension='.txt')
+    d = filedialog.asksaveasfilename(filetypes=[('Text File', '*.txt')])
     if d is None:
         return
-    d.write(f, encoding='utf8')
-    d.close()
+    with open(f'{d}.txt', 'w', encoding='utf-8') as j:
+        j.write(f)
 
 def open_popup():
    top= tk.Toplevel()
@@ -25,18 +31,17 @@ def open_popup():
    top.geometry('750x750')
    save = tk.Button(top, text="Save", command=file_save)
    save.pack(side=tk.BOTTOM, pady=10)
-
    text_widget = tk.Text(top, height=700, width=700)
    scroll_bar = tk.Scrollbar(top)
    scroll_bar.pack(side=tk.RIGHT)
    text_widget.pack(side=tk.LEFT)
-   text_widget.insert(tk.END, )
+   text_widget.insert(tk.END, f)
 
 
 def begin():
     base_file = input_entry.get()
     comparison_file = output_entry.get()
-    test_function(base_file, comparison_file)
+    CompareXML(base_file, comparison_file)
 
 def input():
     input_path = filedialog.askopenfilename()
