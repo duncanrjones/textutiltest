@@ -19,17 +19,17 @@ def CompareXML(standardxml, XMLPath):
     f = '\n'.join(diff)
 
 def file_save():
-    d = filedialog.asksaveasfilename(filetypes=[('Text File', '*.txt')])
+    d = filedialog.asksaveasfilename(filetypes=[('Text Documents', '*.txt')], defaultextension='*.*')
     if d is None:
         return
-    with open(f'{d}.txt', 'w', encoding='utf-8') as j:
+    with open(d, 'w', encoding='utf-8') as j:
         j.write(f)
 
 def open_popup():
    top= tk.Toplevel()
-   top.title(".tds diff overview")
+   top.title('.tds diff overview')
    top.geometry('750x750')
-   save = tk.Button(top, text="Save", command=file_save)
+   save = tk.Button(top, text='Save', command=file_save)
    save.pack(side=tk.BOTTOM, pady=10)
    text_widget = tk.Text(top, height=700, width=700)
    scroll_bar = tk.Scrollbar(top)
@@ -57,20 +57,16 @@ def output():
 
 top_frame = tk.Frame(master)
 bottom_frame = tk.Frame(master)
-line = tk.Frame(master, height=1, width=400, bg="grey80", relief='groove')
+line = tk.Frame(master, height=1, width=400, bg='grey80', relief='groove')
 master.title('Jonesy\'s .tds diff util')
 
-input_path = tk.Label(top_frame, text="Base File:")
-input_entry = tk.Entry(top_frame, text="", width=40)
-browse1 = tk.Button(top_frame, text="Browse", command=input)
+input_path = tk.Label(top_frame, text='Base File:')
+input_entry = tk.Entry(top_frame, text='', width=40)
+browse1 = tk.Button(top_frame, text='Browse', command=input)
 
-output_path = tk.Label(bottom_frame, text="Comparison File:")
-output_entry = tk.Entry(bottom_frame, text="", width=40)
-browse2 = tk.Button(bottom_frame, text="Browse", command=output)
-
-# save_path = tk.Label(bottom_frame, text="Save To:")
-# save_entry = tk.Entry(bottom_frame, text="", width=40)
-# save = tk.Button(bottom_frame, text="Browse", command=filedialog.asksaveasfile(mode='w', defaultextension='.txt'))
+output_path = tk.Label(bottom_frame, text='Comparison File:')
+output_entry = tk.Entry(bottom_frame, text='', width=40)
+browse2 = tk.Button(bottom_frame, text='Browse', command=output)
 
 begin_button = tk.Button(bottom_frame, text='Compare', command=lambda:[begin(), open_popup()])
 
@@ -85,10 +81,6 @@ browse1.pack(pady=5)
 output_path.pack(pady=5)
 output_entry.pack(pady=5)
 browse2.pack(pady=5)
-
-# save_path.pack(pady=5)
-# save_entry.pack(pady=5)
-# save.pack(pady=5)
 
 begin_button.pack(pady=20, fill=tk.X)
 
