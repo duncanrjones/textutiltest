@@ -31,9 +31,9 @@ def open_popup():
    top.geometry('750x750')
    save = tk.Button(top, text='Save', command=file_save)
    save.pack(side=tk.BOTTOM, pady=10)
-   text_widget = tk.Text(top, height=700, width=700)
-   scroll_bar = tk.Scrollbar(top)
-   scroll_bar.pack(side=tk.RIGHT)
+   scroll_bar = tk.Scrollbar(top, orient='vertical')
+   scroll_bar.pack(side=tk.RIGHT, fill=tk.BOTH)
+   text_widget = tk.Text(top, height=700, width=700, yscrollcommand=scroll_bar.set)
    text_widget.pack(side=tk.LEFT)
    text_widget.insert(tk.END, f)
 
